@@ -66,9 +66,9 @@ def calculer_etat_suivant(creer_fusee, etat : tuple , dt):
     temps_t = etat[0]
     altitude_h = etat[1]    
     vitesse_v = etat[2]
-    temps_t += (temps_t + dt)
-    vitesse_v += (vitesse_v + (calculer_acceleration(creer_fusee, etat[0], altitude_h) * dt))
-    altitude_h +=( altitude_h + vitesse_v * dt)
+    temps_t = (temps_t + dt)
+    vitesse_v = (vitesse_v + (calculer_acceleration(creer_fusee, etat[0], altitude_h) * dt))
+    altitude_h =( altitude_h + vitesse_v * dt)
     etat_test = (temps_t, vitesse_v,altitude_h)
     if altitude_h <= 0 :
         etat_test = (temps_t, 0, 0)
@@ -92,15 +92,22 @@ def simuler_lancement(creer_fusee, duree, dt) :
 
 
 #etat_test = (temps_t, vitesse_v,altitude_h)
+# def trouver_apogee(trajectoire : tuple):
+#     altitude_maximum = 0
+#     temps_maximum = 0
+#     for (temps_t,vitesse_v,altitude_h) in trajectoire:
+#         if altitude_h > altitude_maximum :
+#             altitude_maximum = altitude_h
+#             temps_maximum = temps_t
+#     return (temps_maximum, altitude_maximum)
+
 def trouver_apogee(trajectoire : tuple):
-    altitude_maximum = 0
-    temps_maximum = 0
-    for (temps_t,vitesse_v,altitude_h) in trajectoire:
-        if altitude_h > altitude_maximum :
-            altitude_maximum = altitude_h
-            temps_maximum = temps_t
-        
-    return (temps_maximum, altitude_maximum)
+    altitude_max = 0
+    for i in trajectoire:
+      if i[2] > altitude_max:
+          altitude_max = i[2]
+          temps_max = i[0]
+    return temps_max, altitude_max
 
 def retrouver_fusee():
     pass
@@ -109,7 +116,7 @@ def retrouver_fusee():
 
 def main():
     fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
-    print(simuler_lancement(fusee, 200, 0.5))
+    print(trouver_apogee(simuler_lancement(fusee, 200, 0.5)))
 
 if __name__ == "__main__" : 
     main()
