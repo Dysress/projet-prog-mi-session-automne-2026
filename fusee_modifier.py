@@ -90,17 +90,6 @@ def simuler_lancement(creer_fusee, duree, dt) :
 
     return trajectoire
 
-
-#etat_test = (temps_t, vitesse_v,altitude_h)
-# def trouver_apogee(trajectoire : tuple):
-#     altitude_maximum = 0
-#     temps_maximum = 0
-#     for (temps_t,vitesse_v,altitude_h) in trajectoire:
-#         if altitude_h > altitude_maximum :
-#             altitude_maximum = altitude_h
-#             temps_maximum = temps_t
-#     return (temps_maximum, altitude_maximum)
-
 def trouver_apogee(trajectoire : tuple):
     altitude_max = 0
     for i in trajectoire:
