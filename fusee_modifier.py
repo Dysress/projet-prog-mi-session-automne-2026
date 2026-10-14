@@ -111,4 +111,4 @@ if __name__ == "__main__" :
 
 fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
 
-print(trouver_apogee(simuler_lancement(fusee, 200, 0.5)))
+print(simuler_lancement(fusee, 200, 0.5))
