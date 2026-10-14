@@ -28,7 +28,6 @@ def calculer_masse(creer_fusee,t):
 
 #kg * m/s
 #poids * vitesse = force de pousser
-#pousser initiale = 
 #doit retravailler
 def calculer_poussee(creer_fusee,t):
     pousse_initiale = creer_fusee[3]
@@ -64,8 +63,8 @@ def calculer_acceleration(creer_fusee,t,altitude):
 
 def calculer_etat_suivant(creer_fusee, etat : tuple , dt):
     temps_t = etat[0]
-    altitude_h = etat[1]    
-    vitesse_v = etat[2]
+    altitude_h = etat[2]    
+    vitesse_v = etat[1]
     temps_t = (temps_t + dt)
     vitesse_v = (vitesse_v + (calculer_acceleration(creer_fusee, etat[0], altitude_h) * dt))
     altitude_h =( altitude_h + vitesse_v * dt)
@@ -106,6 +105,7 @@ def retrouver_fusee():
 def main():
     fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
     print(trouver_apogee(simuler_lancement(fusee, 200, 0.5)))
+    
 
 if __name__ == "__main__" : 
     main()
