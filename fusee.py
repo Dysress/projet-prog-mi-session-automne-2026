@@ -61,12 +61,12 @@ def calculer_acceleration(fusee,t,altitude):
 
 def calculer_etat_suivant(fusee, etat : tuple , dt):
     temps_t = etat[0]
-    altitude_h = etat[2]    
-    vitesse_v = etat[1]
+    altitude_h = etat[1]    
+    vitesse_v = etat[2]
     temps_t = (temps_t + dt)
     vitesse_v = (vitesse_v + (calculer_acceleration(fusee, etat[0], altitude_h) * dt))
     altitude_h =( altitude_h + vitesse_v * dt)
-    etat_test = (temps_t, vitesse_v,altitude_h)
+    etat_test = (temps_t, altitude_h, vitesse_v)
     if altitude_h <= 0 :
         etat_test = (temps_t, 0, 0)
     return etat_test
