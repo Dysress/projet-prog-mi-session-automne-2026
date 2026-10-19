@@ -1,9 +1,11 @@
 # Ajoutez vos includes ici
 from scipy.constants import g as gravity
+from outils_graphiques import afficher_graphique 
 
 PRENOM = "Maika"
 NOM = "Grenon"
 MATRICULE = "2568163"
+rayon_terre = 6371000
 
 # Ajoutez votre code ici
 
@@ -43,7 +45,6 @@ def calculer_poussee(fusee,t):
 #gravite = g * (R/(R+altitude))**2
 def calculer_gravite(altitude):
     gravite_terre = 9.81
-    rayon_terre = 6371000
     gravite = gravite_terre * ((rayon_terre/(rayon_terre+altitude))**2)
     return gravite
 
@@ -95,9 +96,19 @@ def trouver_apogee(trajectoire : tuple):
           temps_maximum = i[0]
     return temps_maximum, altitude_maximum
 
+
+#a revoir et tester 
 def retrouver_fusee(nom_fusee, liste_fusees : list):
-    fusee = creer_fusee(nom_fusee,nom_fusee[1],nom_fusee[2],nom_fusee[3],nom_fusee[4])
+    for i in range(len(liste_fusees)):
+        for j in range(len(liste_fusees[i])):
+            if liste_fusees[j] == nom_fusee :
+                fusee_temporaire = liste_fusees[j]
+                fusee = creer_fusee(fusee_temporaire[0],fusee_temporaire[1],fusee_temporaire[2],fusee_temporaire[3],fusee_temporaire[4])
     return fusee
+
+#afficher_graphique(x, y, titre, label_x, label_y)
+def graphique(trajectoire):
+    pass
 
 
 
