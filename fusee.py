@@ -1,7 +1,5 @@
 # Ajoutez vos includes ici
-
-from modulefinder import test
-
+from scipy.constants import g as gravity
 
 PRENOM = "Maika"
 NOM = "Grenon"
@@ -17,27 +15,27 @@ def creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :flo
 
 
 #masse total fusse = masse seche + (carburant restant, doit etre +) au temps t
-def calculer_masse(creer_fusee,t):
-    carburant_restant = creer_fusee[2] - (creer_fusee[4] * t)
+def calculer_masse(fusee,t):
+    carburant_restant = fusee[2] - (fusee[4] * t)
     if carburant_restant <= 0 :
-        masse_total_fusee = creer_fusee[1] 
+        masse_total_fusee = fusee[1] 
     else :
-        masse_total_fusee = creer_fusee[1] + carburant_restant
+        masse_total_fusee = fusee[1] + carburant_restant
 
     return masse_total_fusee
 
 #kg * m/s
 #poids * vitesse = force de pousser
 #doit retravailler
-def calculer_poussee(creer_fusee,t):
-    pousse_initiale = creer_fusee[3]
-    carburant_restant = creer_fusee[2] - (creer_fusee[4]* t)
+def calculer_poussee(fusee,t):
+    pousse_initiale = fusee[3]
+    carburant_restant = fusee[2] - (fusee[4]* t)
     if carburant_restant <= 0 :
         pousse_temps_t = 0
         return pousse_temps_t
     else:
-        vitesse = pousse_initiale / calculer_masse(creer_fusee,t)
-        poids = calculer_masse(creer_fusee,t) 
+        vitesse = pousse_initiale / calculer_masse(fusee,t)
+        poids = calculer_masse(fusee,t) 
         pousee_progressive = poids * vitesse
         return pousee_progressive
 
@@ -52,28 +50,28 @@ def calculer_gravite(altitude):
 
 
 #(pousse au temps t -(masse totale  * gravite)) / masse total
-def calculer_acceleration(creer_fusee,t,altitude):
-    pousse = calculer_poussee(creer_fusee,t)
-    masse_total = calculer_masse(creer_fusee,t)
+def calculer_acceleration(fusee,t,altitude):
+    pousse = calculer_poussee(fusee,t)
+    masse_total = calculer_masse(fusee,t)
     gravite = calculer_gravite(altitude) 
     calcule = ( pousse - (masse_total * gravite )) / masse_total
     return calcule
 
 #etats =temps (t) altitude(h) vitesse(v)
 
-def calculer_etat_suivant(creer_fusee, etat : tuple , dt):
+def calculer_etat_suivant(fusee, etat : tuple , dt):
     temps_t = etat[0]
     altitude_h = etat[2]    
     vitesse_v = etat[1]
     temps_t = (temps_t + dt)
-    vitesse_v = (vitesse_v + (calculer_acceleration(creer_fusee, etat[0], altitude_h) * dt))
+    vitesse_v = (vitesse_v + (calculer_acceleration(fusee, etat[0], altitude_h) * dt))
     altitude_h =( altitude_h + vitesse_v * dt)
     etat_test = (temps_t, vitesse_v,altitude_h)
     if altitude_h <= 0 :
         etat_test = (temps_t, 0, 0)
     return etat_test
 
-def simuler_lancement(creer_fusee, duree, dt) :
+def simuler_lancement(fusee, duree, dt) :
     etat_initiale = (0, 0, 0)
     trajectoire = []
     nombre_etat = int(duree/dt)+1
@@ -81,7 +79,7 @@ def simuler_lancement(creer_fusee, duree, dt) :
         if i == 0 :
             trajectoire.append(etat_initiale)
         else :
-            test = calculer_etat_suivant(creer_fusee, etat_initiale, dt)
+            test = calculer_etat_suivant(fusee, etat_initiale, dt)
             etat = (test[0], test[1], test[2])
             trajectoire.append(etat)
             etat_initiale = etat
@@ -105,7 +103,7 @@ def retrouver_fusee(nom_fusee, liste_fusees : list):
 
 def main():
     fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
-    print(trouver_apogee(simuler_lancement(fusee, 200, 0.5)))
+    print(simuler_lancement(fusee, 100, 1))
     
 
 if __name__ == "__main__" : 
