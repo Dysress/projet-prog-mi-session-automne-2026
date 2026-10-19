@@ -106,15 +106,18 @@ def retrouver_fusee(nom_fusee, liste_fusees : list):
                 fusee = creer_fusee(fusee_temporaire[0],fusee_temporaire[1],fusee_temporaire[2],fusee_temporaire[3],fusee_temporaire[4])
     return fusee
 
-#afficher_graphique(x, y, titre, label_x, label_y)
+#afficher_graphique(x : list de nombres, y : list de nombres, titre : str, label_x : str, label_y : str)
 def graphique(trajectoire):
-    pass
+    for i in range(len(trajectoire)):
+        valeur = trajectoire[i]
+    return afficher_graphique([i[0] for i in trajectoire],[i[1] for i in trajectoire], "Lancement de la fusée", "Temps (s)", "Altitude (m)")
+    
 
 
 
 def main():
     fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
-    print(simuler_lancement(fusee, 100, 1))
+    print(graphique(simuler_lancement(fusee, 100, 1)))
     
 
 if __name__ == "__main__" : 
