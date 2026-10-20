@@ -114,12 +114,7 @@ def graphique(trajectoire):
         for j in range(len(valeur)):
             liste_y.append(valeur[1])
             liste_x.append(valeur[0])
-    return afficher_graphique(liste_x, liste_y, "Lancement de la fusée", "Altitude (m)", "Temps (s)")
-
-    #return afficher_graphique([i[0] for i in trajectoire],[i[1] for i in trajectoire], "Lancement de la fusée", "Temps (s)", "Altitude (m)")
-    
-
-
+    return afficher_graphique(liste_x, liste_y, "Lancement de la fusée", " Temps (s) ", " Altitude (m) ")
 
 def main():
     fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
@@ -127,13 +122,21 @@ def main():
     
 
 if __name__ == "__main__" : 
-    #main()
+    main()
     print('----------------------------------------------------')
     print('        BIENVENUE AU LANCEMENT DE FUSÉE !!          ')
     print('----------------------------------------------------')
 
     print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
-    print(" 1. Créer une fusée ")
-    print(" 2. Lancer la simulation d'une fusée ")
-    print(" 3. ")
+    print(" 1. Créer une fusée ") # et la conserver dans une liste
+    print(" 2. Lancer la simulation d'une fusée ") #durée et dt doivent être demandés à l'utilisateur
+    #apoge (temps et altitude)
+    print(" 3. Afficher les résultats d'un lancement : apogée, vitesse maxiamle, temps de combustion et altitude finale.")
+    print(" 4. Afficher le graphique de l'altitude en fonction du temps pour un lancement ")
+    print(" 5. Quitter le programme ")
+
+    choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
+    #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
+    if choix_de_utilisateur == "1": 
+        nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
 
