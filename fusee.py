@@ -122,21 +122,32 @@ def main():
     
 
 if __name__ == "__main__" : 
-    main()
-    print('----------------------------------------------------')
-    print('        BIENVENUE AU LANCEMENT DE FUSÉE !!          ')
-    print('----------------------------------------------------')
+    #main()
+    print('\n~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°~')
+    print('|                                                                            |')
+    print('|             BIENVENUE AU SIMULATEUR DE LANCEMENT DE FUSÉE !!               |')
+    print('|                                                                            |')
+    print('~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°~\n')
 
     print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
-    print(" 1. Créer une fusée ") # et la conserver dans une liste
-    print(" 2. Lancer la simulation d'une fusée ") #durée et dt doivent être demandés à l'utilisateur
-    #apoge (temps et altitude)
-    print(" 3. Afficher les résultats d'un lancement : apogée, vitesse maxiamle, temps de combustion et altitude finale.")
-    print(" 4. Afficher le graphique de l'altitude en fonction du temps pour un lancement ")
-    print(" 5. Quitter le programme ")
+    print("     1. Créer une fusée. ") # et la conserver dans une liste
+    print("     2. Lancer la simulation d'une fusée. ") #durée et dt doivent être demandés à l'utilisateur
+    print("     3. Afficher les résultats d'un lancement : apogée, vitesse maxiamle, temps de combustion et altitude finale.")#apoge (temps et altitude)
+    print("     4. Afficher le graphique de l'altitude en fonction du temps pour un lancement. ")
+    print("     5. Quitter le programme. \n")
 
     choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
     #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
     if choix_de_utilisateur == "1": 
-        nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
+        fusee_creer = []
+        nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
+        masse_seche = float(input(" Veuillez entrer la masse a vide de votre fusée (kg) : "))
+        masse_carburant = float(input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : "))
+        pousse = float(input(" Veuillez entrer la pousse du moteur de votre fusee (N) : "))
+        debit = float(input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :"))
+        fusee = nom_fusee
+        nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
+        fusee_creer.append(nom_fusee)
+        print(fusee_creer[0])
+
 
