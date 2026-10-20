@@ -127,4 +127,13 @@ def main():
     
 
 if __name__ == "__main__" : 
-    main()
+    #main()
+    print('----------------------------------------------------')
+    print('        BIENVENUE AU LANCEMENT DE FUSÉE !!          ')
+    print('----------------------------------------------------')
+
+    print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
+    print(" 1. Créer une fusée ")
+    print(" 2. Lancer la simulation d'une fusée ")
+    print(" 3. ")
+
