@@ -64,9 +64,9 @@ def calculer_etat_suivant(fusee, etat : tuple , dt):
     temps_t = etat[0]
     altitude_h = etat[1]    
     vitesse_v = etat[2]
-    temps_t = (temps_t + dt)
-    vitesse_v = (vitesse_v + (calculer_acceleration(fusee, etat[0], altitude_h) * dt))
-    altitude_h =( altitude_h + vitesse_v * dt)
+    temps_t +=  dt
+    vitesse_v += calculer_acceleration(fusee, etat[0], altitude_h) * dt
+    altitude_h += vitesse_v * dt
     etat_test = (temps_t, altitude_h, vitesse_v)
     if altitude_h <= 0 :
         etat_test = (temps_t, 0, 0)
@@ -90,21 +90,19 @@ def simuler_lancement(fusee, duree, dt) :
 
 def trouver_apogee(trajectoire : tuple):
     altitude_maximum = 0
-    for i in trajectoire:
+    for i in trajectoire:  # retourne trajectoire[i]
       if i[2] > altitude_maximum:
           altitude_maximum = i[2]
           temps_maximum = i[0]
     return temps_maximum, altitude_maximum
 
-
-#a revoir et tester 
+ 
 def retrouver_fusee(nom_fusee, liste_fusees : list):
-    for i in range(len(liste_fusees)):
-        for j in range(len(liste_fusees[i])):
-            if liste_fusees[j] == nom_fusee :
-                fusee_temporaire = liste_fusees[j]
-                fusee = creer_fusee(fusee_temporaire[0],fusee_temporaire[1],fusee_temporaire[2],fusee_temporaire[3],fusee_temporaire[4])
-    return fusee
+    for i in liste_fusees:
+        if i == nom_fusee:
+            return i 
+    return None
+
 
 #afficher_graphique(x : list de nombres, y : list de nombres, titre : str, label_x : str, label_y : str)
 #needs hard rework
