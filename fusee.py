@@ -109,12 +109,14 @@ def retrouver_fusee(nom_fusee, liste_fusees : list):
 #afficher_graphique(x : list de nombres, y : list de nombres, titre : str, label_x : str, label_y : str)
 #needs hard rework
 def graphique(trajectoire):
+    liste_x = []
+    liste_y = []
     for i in range(len(trajectoire)):
         valeur = trajectoire[i] #(0,0,0)
         for j in range(len(valeur)):
-            valeur_2 = [valeur[1]]
-            valeur_3 = [valeur[0]]
-    return afficher_graphique(valeur_3, valeur_2, "Lancement de la fusée", "Altitude (m)", "Temps (s)")
+            liste_y.append(valeur[1])
+            liste_x.append(valeur[0])
+    return afficher_graphique(liste_x, liste_y, "Lancement de la fusée", "Altitude (m)", "Temps (s)")
 
     #return afficher_graphique([i[0] for i in trajectoire],[i[1] for i in trajectoire], "Lancement de la fusée", "Temps (s)", "Altitude (m)")
     
