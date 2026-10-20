@@ -139,6 +139,7 @@ if __name__ == "__main__" :
     choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
     #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
     if choix_de_utilisateur == "1": 
+        print("\n Vous avez choisi l'option 1, creer une fusee. \n")
         fusee_creer = []
         nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
         masse_seche = float(input(" Veuillez entrer la masse a vide de votre fusée (kg) : "))
@@ -149,5 +150,10 @@ if __name__ == "__main__" :
         nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
         fusee_creer.append(nom_fusee)
         print(fusee_creer[0])
+
+    elif choix_de_utilisateur == '2':
+        print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee. ")
+        duree = float(input(" Veuillez entrer la duree de la simulation : "))
+        pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation: "))
 
 
