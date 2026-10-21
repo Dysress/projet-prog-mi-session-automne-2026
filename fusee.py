@@ -72,6 +72,7 @@ def calculer_etat_suivant(fusee, etat : tuple , dt):
         etat_test = (temps_t, 0, 0)
     return etat_test
 
+#etats = temps (t) altitude(h) vitesse(v)
 def simuler_lancement(fusee, duree, dt) :
     etat_initiale = (0, 0, 0)
     trajectoire = []
@@ -80,8 +81,8 @@ def simuler_lancement(fusee, duree, dt) :
         if i == 0 :
             trajectoire.append(etat_initiale)
         else :
-            test = calculer_etat_suivant(fusee, etat_initiale, dt)
-            etat = (test[0], test[1], test[2])
+            etat_suivant = calculer_etat_suivant(fusee, etat_initiale, dt)
+            etat = (etat_suivant[0], etat_suivant[1], etat_suivant[2])
             trajectoire.append(etat)
             etat_initiale = etat
             
@@ -91,12 +92,33 @@ def simuler_lancement(fusee, duree, dt) :
 def trouver_apogee(trajectoire : tuple):
     altitude_maximum = 0
     for i in trajectoire:  # retourne trajectoire[i]
-      if i[2] > altitude_maximum:
-          altitude_maximum = i[2]
-          temps_maximum = i[0]
-    return temps_maximum, altitude_maximum
+      if i[1] > altitude_maximum:
+          altitude_maximum = i[1]
+          temps_altitude_maximum = i[0]
+    return temps_altitude_maximum, altitude_maximum
 
- 
+def vitesse_maximum(trajectoire):
+    vitesse_maximum = 0
+    for i in trajectoire :
+        if i[2] > vitesse_maximum:
+            vitesse_maximum = i[2]
+    return vitesse_maximum
+
+def temps_combustion(trajectoire):
+    temps_combustion = 0
+    for i in trajectoire :
+        if i[0] > 0 :
+            temps_combustion = i[0]
+    return temps_combustion
+
+def altitude_finale(trajectoire):
+    altitude_finale = 0
+    temps_final = temps_combustion(trajectoire)
+    for i in trajectoire :
+        if i[0] == temps_final :
+            altitude_finale = i[1]
+    return altitude_finale
+
 def retrouver_fusee(nom_fusee, liste_fusees : list):
     for i in liste_fusees:
         if i == nom_fusee:
@@ -117,8 +139,9 @@ def graphique(trajectoire):
     return afficher_graphique(liste_x, liste_y, "Lancement de la fusée", " Temps (s) ", " Altitude (m) ")
 
 def main():
-    fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
-    print(graphique(simuler_lancement(fusee, 100, 1)))
+    pass
+    #fusee = creer_fusee('Alpha', 500, 1500, 30000, 50)
+    #print(graphique(simuler_lancement(fusee, 100, 1)))
     
 
 if __name__ == "__main__" : 
@@ -129,31 +152,58 @@ if __name__ == "__main__" :
     print('|                                                                            |')
     print('~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°~\n')
 
-    print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
-    print("     1. Créer une fusée. ") # et la conserver dans une liste
-    print("     2. Lancer la simulation d'une fusée. ") #durée et dt doivent être demandés à l'utilisateur
-    print("     3. Afficher les résultats d'un lancement : apogée, vitesse maxiamle, temps de combustion et altitude finale.")#apoge (temps et altitude)
-    print("     4. Afficher le graphique de l'altitude en fonction du temps pour un lancement. ")
-    print("     5. Quitter le programme. \n")
+    flag = True
+    while flag == True :
 
-    choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
-    #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
-    if choix_de_utilisateur == "1": 
-        print("\n Vous avez choisi l'option 1, creer une fusee. \n")
-        fusee_creer = []
-        nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
-        masse_seche = float(input(" Veuillez entrer la masse a vide de votre fusée (kg) : "))
-        masse_carburant = float(input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : "))
-        pousse = float(input(" Veuillez entrer la pousse du moteur de votre fusee (N) : "))
-        debit = float(input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :"))
-        fusee = nom_fusee
-        nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
-        fusee_creer.append(nom_fusee)
-        print(fusee_creer[0])
+        print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
+        print("     1. Créer une fusée. ") # et la conserver dans une liste
+        print("     2. Lancer la simulation d'une fusée. ") #durée et dt doivent être demandés à l'utilisateur
+        print("     3. Afficher les résultats d'un lancement : apogée, vitesse maximale, temps de combustion et altitude finale.")#apoge (temps et altitude)
+        print("     4. Afficher le graphique de l'altitude en fonction du temps pour un lancement. ")
+        print("     5. Quitter le programme. \n")
 
-    elif choix_de_utilisateur == '2':
-        print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee. ")
-        duree = float(input(" Veuillez entrer la duree de la simulation : "))
-        pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation: "))
+        choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
+        #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
+        if choix_de_utilisateur == "1": 
+            print("\n Vous avez choisi l'option 1, creer une fusee. \n")
+            fusee_creer = []
+            nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
+            masse_seche = float(input(" Veuillez entrer la masse a vide de votre fusée (kg) : "))
+            masse_carburant = float(input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : "))
+            pousse = float(input(" Veuillez entrer la pousse du moteur de votre fusee (N) : "))
+            debit = float(input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :"))
+            fusee = nom_fusee
+            nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
+            fusee_creer.append(nom_fusee)
+
+        elif choix_de_utilisateur == '2':
+            print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee.\n") 
+            duree = float(input(" Veuillez entrer la duree de la simulation : "))
+            pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation: "))
+            fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : ")
+            fusee_trouver = retrouver_fusee(fusee, fusee_creer)
+            if fusee_trouver == None :
+                print(" La fusee demander n'est pas dans celles cree. ")
+            else :
+                simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
 
 
+        elif choix_de_utilisateur == '3': #apogée, vitesse maximale, temps de combustion et altitude finale
+            print(" \n Vous avez choisi l'option 3, afficher les résultats d'un lancement. \n")
+            apogee = trouver_apogee(simulation_fusee)
+            vitesse_max = vitesse_maximum(simulation_fusee)
+            temps_comb = temps_combustion(simulation_fusee)
+            altitude_fin = altitude_finale(simulation_fusee)
+            print(f"\n L'apogée de la fusée est de {apogee[1]} m, atteinte à {apogee[0]} s. ")
+            print(f"\n La vitesse maximale de la fusée est de {vitesse_max} m/s. ")
+            print(f"\n Le temps de combustion de la fusée est de {temps_comb} s. ")
+            print(f" \n L'altitude finale de la fusée est de {altitude_fin} m. ")
+
+        elif choix_de_utilisateur == '4':
+            print(" \n Vous avez choisi l'option 4, afficher le graphique de l'altitude en fonction du temps pour un lancement. \n")
+            afficher_graphique = graphique(simulation_fusee)
+            print(afficher_graphique)
+
+        elif choix_de_utilisateur == '5':
+            print(" \n Vous avez choisi l'option 5, quitter le programme. \n")
+            flag = False
