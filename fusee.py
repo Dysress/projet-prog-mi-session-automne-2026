@@ -91,6 +91,7 @@ def simuler_lancement(fusee, duree, dt) :
 
 def trouver_apogee(trajectoire : tuple):
     altitude_maximum = 0
+    temps_altitude_maximum = 0
     for i in trajectoire:  # retourne trajectoire[i]
       if i[1] > altitude_maximum:
           altitude_maximum = i[1]
@@ -121,7 +122,7 @@ def altitude_finale(trajectoire):
 
 def retrouver_fusee(nom_fusee, liste_fusees : list):
     for i in liste_fusees:
-        if i == nom_fusee:
+        if i[0] == nom_fusee:
             return i 
     return None
 
@@ -155,7 +156,7 @@ if __name__ == "__main__" :
     flag = True
     while flag == True :
 
-        print("VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
+        print(" \n \n VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
         print("     1. Créer une fusée. ") # et la conserver dans une liste
         print("     2. Lancer la simulation d'une fusée. ") #durée et dt doivent être demandés à l'utilisateur
         print("     3. Afficher les résultats d'un lancement : apogée, vitesse maximale, temps de combustion et altitude finale.")#apoge (temps et altitude)
