@@ -166,26 +166,53 @@ if __name__ == "__main__" :
 
         choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
         #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
+
+    #=========================================================================================================================
+    #------------ option 1 : creer une fusee ---------------------------------------------------------------------------------
+    #=========================================================================================================================
         if choix_de_utilisateur == "1": 
             print("\n","*"*100)
-            print("\n Vous avez choisi l'option 1, creer une fusee. \n")
+            print("\n Vous avez choisi l'option 1, créer une fusée. \n")
             fusee_creer = []
+
             nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
-            masse_seche = float(input(" Veuillez entrer la masse a vide de votre fusée (kg) : "))
-            masse_carburant = float(input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : "))
-            pousse = float(input(" Veuillez entrer la pousse du moteur de votre fusee (N) : "))
-            debit = float(input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :"))
+            while nom_fusee == "":
+                print(" Le nom de la fusée ne peut pas être vide. Veuillez entrer un nom valide. ")
+                nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
+
+            masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
+            while masse_seche <= 0 or masse_seche == "" or masse_seche == str:
+                print(" Erreur dans l'entrer de la masse sèche. Veuillez entrer une valeur valide. ")
+                masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
+
+            masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
+            while masse_carburant <= 0 or masse_carburant == "" or masse_carburant == str:
+                print(" Erreur dans l'entrer de la masse du carburant. Veuillez entrer une valeur valide. ")
+                masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
+
+            pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
+            while pousse <= 0 or pousse == "" or pousse == str:
+                print(" Erreur dans l'entrer de la pousse de la fusee. Veuillez entrer une valeur valide. ")
+                pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
+
+            debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :")
+            while debit <= 0 or debit == "" or debit == str:
+                print(" Erreur dans l'entrer de la pousse de la fusee. Veuillez entrer une valeur valide. ")
+                debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :")
+
             fusee = nom_fusee
             nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
             fusee_creer.append(nom_fusee)
             print(f"\n La fusée {fusee} a été créée avec succès. \n")
             print("\n","*"*100)
-
+    #=========================================================================================================================
+    #------------ option 2 : lancer la simulation d'une fusee -----------------------------------------------------------------------------------------------
+    #=========================================================================================================================
         elif choix_de_utilisateur == '2':
             print("\n","*"*100)
             print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee.\n") 
-            duree = float(input(" Veuillez entrer la duree de la simulation : "))
-            pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation: "))
+            duree = float(input(" Veuillez entrer la duree de la simulation (s): "))
+            pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
             fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
             fusee_trouver = retrouver_fusee(fusee, fusee_creer)
             if fusee_trouver == None :
@@ -194,7 +221,9 @@ if __name__ == "__main__" :
                 simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
                 print(" \n La simulation de la fusée a été un succès.\n ")
             print("\n","*"*100)
-
+    #=========================================================================================================================
+    #------------ option 3 : afficher les résultats d'un lancement -----------------------------------------------------------------------------------------------
+    #=========================================================================================================================
         elif choix_de_utilisateur == '3': #apogée, vitesse maximale, temps de combustion et altitude finale
             print("\n","*"*100)
             print(" \n Vous avez choisi l'option 3, afficher les résultats d'un lancement. \n")
@@ -207,24 +236,33 @@ if __name__ == "__main__" :
             print(f"\n Le temps de combustion de la fusée est de {temps_comb} s. ")
             print(f" \n L'altitude finale de la fusée est de {altitude_fin} m. ")
             print("\n","*"*100)
-
+    #=========================================================================================================================
+    #------------ option 4 : afficher le graphique de l'altitude en fonction du temps -----------------------------------------------------------------------------------------------
+    #========================================================================================================================= 
         elif choix_de_utilisateur == '4':
             print("\n","*"*100)
             print(" \n Vous avez choisi l'option 4, afficher le graphique de l'altitude en fonction du temps pour un lancement. \n")
             afficher_graphique = graphique(simulation_fusee)
             print(afficher_graphique)
             print("\n", "*"*100)
-
+    #=========================================================================================================================
+    #------------ option 5 : quitter le programme -----------------------------------------------------------------------------------------------
+    #=========================================================================================================================
         elif choix_de_utilisateur == '5':
             print("\n","*"*100  )
             print(" \n Vous avez choisi l'option 5, quitter le programme. \n")
             boucle_principale_simulation = False
+    #=========================================================================================================================
+    #------------ Mauvais entrer dans menu -----------------------------------------------------------------------------------------------
+    #=========================================================================================================================    
         else:
             print("\n","*"*100)
             print(" \n Entrée invalide, veuillez entrer un chiffre entre 1 et 5. \n")
             entrer_invalide_menu = False 
             print("\n","*"*100)
-
+    #=========================================================================================================================
+    #------------ recommence la boucle  -----------------------------------------------------------------------------------------------
+    #=========================================================================================================================
         if entrer_invalide_menu == True :
             continuer = input("\n Voulez vous retouner au menu ou arrêter la simulation? (Continuer(c) / arreter (a)) : \n ")
             if continuer.upper() == 'C':
