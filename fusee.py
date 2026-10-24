@@ -36,9 +36,8 @@ def calculer_masse(fusee,t):
     return masse_total_fusee
 
 
-#kg * m/s
+#kg * m/s**2
 #poids * vitesse = force de pousser
-#doit retravailler
 def calculer_poussee(fusee,t):
     pousse_initiale = fusee[3]
     carburant_restant = fusee[2] - (fusee[4]* t)
@@ -46,9 +45,8 @@ def calculer_poussee(fusee,t):
         pousse_temps_t = 0
         return pousse_temps_t
     else:
-        vitesse = pousse_initiale / calculer_masse(fusee,t)
-        poids = calculer_masse(fusee,t) 
-        pousee_progressive = poids * vitesse
+        acceleration = pousse_initiale / calculer_masse(fusee,t)
+        pousee_progressive = calculer_masse(fusee,t) * acceleration
         return pousee_progressive
     
 
@@ -104,7 +102,7 @@ def trouver_apogee(trajectoire : tuple):
       if i[1] > altitude_maximum:
           altitude_maximum = i[1]
           temps_altitude_maximum = i[0]
-    return temps_altitude_maximum, altitude_maximum
+    return (temps_altitude_maximum, altitude_maximum)
 
 
 def vitesse_maximum(trajectoire):
@@ -140,7 +138,6 @@ def retrouver_fusee(nom_fusee, liste_fusees : list):
 
 
 #afficher_graphique(x : list de nombres, y : list de nombres, titre : str, label_x : str, label_y : str)
-#needs hard rework
 def graphique(trajectoire):
     liste_x = []
     liste_y = []
@@ -187,31 +184,31 @@ def main():
     
             nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
             while nom_fusee.isalpha() == False :
-                print(" Erreur d'entrer, veuillez reessayer ")
-                nom_fusee = input(" Veuillez entrer le nom de votre fusee : ")
+                print(" Erreur d'entrer, veuillez réessayer ")
+                nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
     
-            masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
+            masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
             while masse_seche.isdigit() == False : 
-                print(" Erreur d'entrer, veuillez reessayer ") 
-                masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
+                print(" Erreur d'entrer, veuillez réessayer ") 
+                masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
             masse_seche = float(masse_seche)    
     
             masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
             while masse_carburant.isdigit() == False :
-                print(" Erreur d'entrer, veuillez reessayer ") 
+                print(" Erreur d'entrer, veuillez réessayer ") 
                 masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")   
             masse_carburant = float(masse_carburant)
     
-            pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
+            pousse = input(" Veuillez entrer la poussé du moteur de votre fusee (N) : ")
             while pousse.isdigit() == False :
-                print(" Erreur d'entrer, veuillez reessayer ")
-                pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
+                print(" Erreur d'entrer, veuillez réessayer ")
+                pousse = input(" Veuillez entrer la poussé du moteur de votre fusee (N) : ")
             pousse = float(pousse)
     
-            debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :")
+            debit = input(" Veuillez entrer le débit d'épuisement du carburant (kg/s) :")
             while debit.isdigit() == False:
-                print(" Erreur d'entrer, veuillez reessayer ")     
-                debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :") 
+                print(" Erreur d'entrer, veuillez réessayer ")     
+                debit = input(" Veuillez entrer le débit d'épuisement du carburant (kg/s) :") 
             debit = float(debit)
     
             fusee = creer_fusee(nom_fusee, masse_seche, masse_carburant, pousse, debit)
@@ -223,29 +220,29 @@ def main():
     #=========================================================================================================================
         elif choix_de_utilisateur == '2':
             print("\n","°"*100)
-            print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee.\n") 
+            print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusée.\n") 
     
             duree = input(" Veuillez entrer la duree de la simulation (s): ")
             while duree.isdigit() == False :
-                print(" Erreur d'entrer, veuillez reessayer ")   
+                print(" Erreur d'entrer, veuillez réessayer ")   
                 duree = input(" Veuillez entrer la duree de la simulation (s): ")
             duree = float(duree)   
     
             pas_de_temps = input(" Veuillez entrer le pas de temps pour la simulation (s): ")
             while pas_de_temps.isdigit() == False :
-                print(" Erreur d'entrer, veuillez reessayer ") 
+                print(" Erreur d'entrer, veuillez réessayer ") 
                 pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
             pas_de_temps = float(pas_de_temps)
     
-            fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
+            fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : ")
             while fusee.isalpha() == False :
-                print(" Erreur d'entrer, veuillez reessayer ") 
-                fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
+                print(" Erreur d'entrer, veuillez réessayer ") 
+                fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : ")
     
             fusee_trouver = retrouver_fusee(fusee, fusee_creer)
             while fusee_trouver == None :
-                print(" La fusee demander n'a pas ete trouver, veuillez reessayer. ")
-                fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
+                print(" La fusée demander n'a pas été trouvé, veuillez réessayer. ")
+                fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : \n ")
                 fusee_trouver = retrouver_fusee(fusee, fusee_creer)
     
             simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
@@ -290,20 +287,6 @@ def main():
             print(" \n Entrée invalide, veuillez entrer un chiffre entre 1 et 5. \n")
             entrer_invalide_menu = False 
             print("\n","°"*100)
-    #=========================================================================================================================
-    #------------ recommence la boucle  -----------------------------------------------------------------------------------------------
-    #=========================================================================================================================
-        if entrer_invalide_menu == True :
-            continuer = input("\n Voulez vous retouner au menu ou arrêter la simulation? (Continuer(c) / arreter (a)) : \n ")
-            if continuer.upper() == 'C':
-                boucle_principale_simulation = True
-            elif continuer.upper() == 'A':
-                print(" Merci d'avoir utilisé le simulateur de lancement de fusée. Au revoir !")
-                boucle_principale_simulation = False
-            else:
-                print(" Entrée invalide, le programme va continuer automatiquement.")
-    
-    
 
 if __name__ == "__main__" : 
     main()
