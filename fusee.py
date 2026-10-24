@@ -214,6 +214,7 @@ def main():
             fusee = creer_fusee(nom_fusee, masse_seche, masse_carburant, pousse, debit)
             fusee_creer.append(fusee)
             print(f"\n La fusée {nom_fusee} a été créée avec succès. \n")
+            print(f"\n {nom_fusee}, {masse_seche}, {masse_carburant}, {pousse}, {debit}")
             print("\n","°"*100)
     #=========================================================================================================================
     #------------ option 2 : lancer la simulation d'une fusee -----------------------------------------------------------------------------------------------
@@ -221,54 +222,63 @@ def main():
         elif choix_de_utilisateur == '2':
             print("\n","°"*100)
             print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusée.\n") 
-    
-            duree = input(" Veuillez entrer la duree de la simulation (s): ")
-            while duree.isdigit() == False :
-                print(" Erreur d'entrer, veuillez réessayer ")   
+            simulation_fusee = 0 
+            if fusee_creer == []:
+                print(" Veuillez créer une fusée avant de lancer une simulation. ")
+
+            else :
                 duree = input(" Veuillez entrer la duree de la simulation (s): ")
-            duree = float(duree)   
-    
-            pas_de_temps = input(" Veuillez entrer le pas de temps pour la simulation (s): ")
-            while pas_de_temps.isdigit() == False :
-                print(" Erreur d'entrer, veuillez réessayer ") 
-                pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
-            pas_de_temps = float(pas_de_temps)
-    
-            fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : ")
-            while fusee.isalpha() == False :
-                print(" Erreur d'entrer, veuillez réessayer ") 
+                while duree.isdigit() == False :
+                    print(" Erreur d'entrer, veuillez réessayer ")   
+                    duree = input(" Veuillez entrer la duree de la simulation (s): ")
+                duree = float(duree)   
+        
+                pas_de_temps = input(" Veuillez entrer le pas de temps pour la simulation (s): ")
+                while pas_de_temps.isdigit() == False :
+                    print(" Erreur d'entrer, veuillez réessayer ") 
+                    pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
+                pas_de_temps = float(pas_de_temps)
+        
                 fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : ")
-    
-            fusee_trouver = retrouver_fusee(fusee, fusee_creer)
-            while fusee_trouver == None :
-                print(" La fusée demander n'a pas été trouvé, veuillez réessayer. ")
-                fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : \n ")
+                while fusee.isalpha() == False :
+                    print(" Erreur d'entrer, veuillez réessayer ") 
+                    fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : ")
+        
                 fusee_trouver = retrouver_fusee(fusee, fusee_creer)
-    
-            simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
-            print(" \n La simulation de la fusée a été un succès.\n ")
-            print("\n","°"*100)
+                while fusee_trouver == None :
+                    print(" La fusée demander n'a pas été trouvé, veuillez réessayer. ")
+                    fusee = input(" Veuillez entrer le nom de la fusée que vous souhaitez lancer : \n ")
+                    fusee_trouver = retrouver_fusee(fusee, fusee_creer)
+
+                simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
+                print(" \n La simulation de la fusée a été un succès.\n ")
+                print("\n","°"*100)
     #=========================================================================================================================
     #------------ option 3 : afficher les résultats d'un lancement -----------------------------------------------------------------------------------------------
     #=========================================================================================================================
         elif choix_de_utilisateur == '3': #apogée, vitesse maximale, temps de combustion et altitude finale
             print("\n","°"*100)
             print(" \n Vous avez choisi l'option 3, afficher les résultats d'un lancement. \n")
-            apogee = trouver_apogee(simulation_fusee)
-            vitesse_max = vitesse_maximum(simulation_fusee)
-            temps_comb = temps_combustion(simulation_fusee)
-            altitude_fin = altitude_finale(simulation_fusee)
-            print(f"\n L'apogée de la fusée est de {apogee[1]} m, atteinte à {apogee[0]} s. ")
-            print(f"\n La vitesse maximale de la fusée est de {vitesse_max} m/s. ")
-            print(f"\n Le temps de combustion de la fusée est de {temps_comb} s. ")
-            print(f" \n L'altitude finale de la fusée est de {altitude_fin} m. ")
-            print("\n","°"*100)
+            if simulation_fusee == 0 :
+                print(" Veuillez lancer une simulation avant d'optenir ses résultats. ")
+            else :
+                apogee = trouver_apogee(simulation_fusee)
+                vitesse_max = vitesse_maximum(simulation_fusee)
+                temps_comb = temps_combustion(simulation_fusee)
+                altitude_fin = altitude_finale(simulation_fusee)
+                print(f"\n L'apogée de la fusée est de {apogee[1]} m, atteinte à {apogee[0]} s. ")
+                print(f"\n La vitesse maximale de la fusée est de {vitesse_max} m/s. ")
+                print(f"\n Le temps de combustion de la fusée est de {temps_comb} s. ")
+                print(f" \n L'altitude finale de la fusée est de {altitude_fin} m. ")
+                print("\n","°"*100)
     #=========================================================================================================================
     #------------ option 4 : afficher le graphique de l'altitude en fonction du temps -----------------------------------------------------------------------------------------------
     #========================================================================================================================= 
         elif choix_de_utilisateur == '4':
             print("\n","°"*100)
             print(" \n Vous avez choisi l'option 4, afficher le graphique de l'altitude en fonction du temps pour un lancement. \n")
+            if simulation_fusee == 0 :
+                print(" Veuillez lancer une simulation avant d'optenir son graphique. ")
             afficher_graphique = graphique(simulation_fusee)
             print(afficher_graphique)
             print("\n", "°"*100)
