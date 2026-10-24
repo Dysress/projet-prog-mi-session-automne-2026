@@ -174,36 +174,39 @@ if __name__ == "__main__" :
             print("\n","*"*100)
             print("\n Vous avez choisi l'option 1, créer une fusée. \n")
             fusee_creer = []
-
-            nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
-            while nom_fusee == "":
-                print(" Le nom de la fusée ne peut pas être vide. Veuillez entrer un nom valide. ")
-                nom_fusee = str(input(" Veuillez entrer le nom de votre fusée : "))
+           
+            nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
+            while nom_fusee.isalpha() == False :
+                print(" Erreur d'entrer, veuillez reessayer ")
+                nom_fusee = input(" Veuillez entrer le nom de votre fusee : ")
 
             masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
-            while masse_seche <= 0 or masse_seche == "" or masse_seche == str:
-                print(" Erreur dans l'entrer de la masse sèche. Veuillez entrer une valeur valide. ")
+            while masse_seche.isdigit() == False : 
+                print(" Erreur d'entrer, veuillez reessayer ") 
                 masse_seche = input(" Veuillez entrer la masse a vide de votre fusée (kg) : ")
+            masse_seche = float(masse_seche)    
 
             masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
-            while masse_carburant <= 0 or masse_carburant == "" or masse_carburant == str:
-                print(" Erreur dans l'entrer de la masse du carburant. Veuillez entrer une valeur valide. ")
-                masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
-
+            while masse_carburant.isdigit() == False :
+                print(" Erreur d'entrer, veuillez reessayer ") 
+                masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")   
+            masse_carburant = float(masse_carburant)
+                
             pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
-            while pousse <= 0 or pousse == "" or pousse == str:
-                print(" Erreur dans l'entrer de la pousse de la fusee. Veuillez entrer une valeur valide. ")
+            while pousse.isdigit() == False :
+                print(" Erreur d'entrer, veuillez reessayer ")
                 pousse = input(" Veuillez entrer la pousse du moteur de votre fusee (N) : ")
-
+            pousse = float(pousse)
+            
             debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :")
-            while debit <= 0 or debit == "" or debit == str:
-                print(" Erreur dans l'entrer de la pousse de la fusee. Veuillez entrer une valeur valide. ")
-                debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :")
+            while debit.isdigit() == False:
+                print(" Erreur d'entrer, veuillez reessayer ")     
+                debit = input(" Veuillez entrer le debit d'epuisement du carburant (kg/s) :") 
+            debit = float(debit)
 
-            fusee = nom_fusee
-            nom_fusee = creer_fusee(fusee, masse_seche, masse_carburant, pousse, debit)
-            fusee_creer.append(nom_fusee)
-            print(f"\n La fusée {fusee} a été créée avec succès. \n")
+            fusee = creer_fusee(nom_fusee, masse_seche, masse_carburant, pousse, debit)
+            fusee_creer.append(fusee)
+            print(f"\n La fusée {nom_fusee} a été créée avec succès. \n")
             print("\n","*"*100)
     #=========================================================================================================================
     #------------ option 2 : lancer la simulation d'une fusee -----------------------------------------------------------------------------------------------
@@ -211,15 +214,28 @@ if __name__ == "__main__" :
         elif choix_de_utilisateur == '2':
             print("\n","*"*100)
             print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusee.\n") 
-            duree = float(input(" Veuillez entrer la duree de la simulation (s): "))
+
+            duree = input(" Veuillez entrer la duree de la simulation (s): ")
+            while duree.isdigit() == False :
+                print(" Erreur d'entrer, veuillez reessayer ")   
+                duree = input(" Veuillez entrer la duree de la simulation (s): ")
+            duree = float(duree)   
+
             pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
+            while pas_de_temps.isdigit() == False :
+                print(" Erreur d'entrer, veuillez reessayer ") 
+                pas_de_temps = float(input(" Veuillez entrer le pas de temps pour la simulation (s): "))
+            pas_de_temps = float(pas_de_temps)
+
             fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
             fusee_trouver = retrouver_fusee(fusee, fusee_creer)
-            if fusee_trouver == None :
-                print(" La fusee demander n'est pas dans celles créer. ")
-            else :
-                simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
-                print(" \n La simulation de la fusée a été un succès.\n ")
+            while fusee_trouver == None :
+                print(" La fusee demander n'a pas ete trouver, veuillez reessayer. ")
+                fusee = input(" Veuillez entrer le nom de la fusée que vous voulez lancer : \n ")
+                fusee_trouver = retrouver_fusee(fusee, fusee_creer)
+            
+            simulation_fusee = simuler_lancement(fusee_trouver, duree, pas_de_temps)
+            print(" \n La simulation de la fusée a été un succès.\n ")
             print("\n","*"*100)
     #=========================================================================================================================
     #------------ option 3 : afficher les résultats d'un lancement -----------------------------------------------------------------------------------------------
