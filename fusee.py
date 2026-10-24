@@ -161,7 +161,6 @@ def main():
     print('~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°°~~~°°~\n')
     
     boucle_principale_simulation = True
-    entrer_invalide_menu = True
     while boucle_principale_simulation == True :
     
         print(" \n \n VEUILLER CHOISIR L'UNE DES OPTIONS SUIVANTE : \n")
@@ -173,6 +172,8 @@ def main():
     
         choix_de_utilisateur = input(" Veuillez entrer votre choix (1-5) : ")
         #creer_fusee(nom :str ,masse_seche :float,masse_carburant : float,pousse :float ,debit :float)
+        fusee_creer = []
+        simulation_fusee = 0 
     
     #=========================================================================================================================
     #------------ option 1 : creer une fusee ---------------------------------------------------------------------------------
@@ -180,7 +181,6 @@ def main():
         if choix_de_utilisateur == "1": 
             print("\n","°"*100)
             print("\n Vous avez choisi l'option 1, créer une fusée. \n")
-            fusee_creer = []
     
             nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
             while nom_fusee.isalpha() == False :
@@ -222,7 +222,6 @@ def main():
         elif choix_de_utilisateur == '2':
             print("\n","°"*100)
             print(" \n Vouz avez choisi l'option 2, lancer la simulation d'une fusée.\n") 
-            simulation_fusee = 0 
             if fusee_creer == []:
                 print(" Veuillez créer une fusée avant de lancer une simulation. ")
 
@@ -300,4 +299,3 @@ def main():
 
 if __name__ == "__main__" : 
     main()
-    
