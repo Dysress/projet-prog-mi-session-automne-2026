@@ -1,5 +1,5 @@
 # Ajoutez vos includes ici
-from scipy.constants import g as gravity
+from scipy.constants import g as gravite_terre
 from outils_graphiques import afficher_graphique 
 
 PRENOM = "Maika"
@@ -44,7 +44,6 @@ def calculer_poussee(fusee,t):
 
 #gravite = g * (R/(R+altitude))**2
 def calculer_gravite(altitude):
-    gravite_terre = 9.81
     gravite = gravite_terre * ((rayon_terre/(rayon_terre+altitude))**2)
     return gravite
 
