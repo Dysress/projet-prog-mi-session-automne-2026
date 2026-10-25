@@ -183,8 +183,15 @@ def main():
             print("\n Vous avez choisi l'option 1, créer une fusée. \n")
     
             nom_fusee = input(" Veuillez entrer le nom de votre fusée : ")
-    
-            masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
+            masse_seche_flag = True
+            while masse_seche_flag == True :
+                masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
+                try :
+                    masse_seche = float(masse_seche)
+                except:
+                    raise ValueError
+                else : masse_seche_flag = False
+            
             while masse_seche.isdigit() == False : 
                 print(" Erreur d'entrer, veuillez réessayer ") 
                 masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
