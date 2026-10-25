@@ -189,25 +189,31 @@ def main():
                 try :
                     masse_seche = float(masse_seche)
                 except:
-                    raise ValueError
-                else : masse_seche_flag = False
-            
-            while masse_seche.isdigit() == False : 
+                    print(" Erreur d'entrer, veuillez réssayer")
+                else : masse_seche_flag = False  
+
+            masse_carburant_flag = True 
+            while masse_carburant_flag == True: 
+                masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
+            try :
+                masse_carburant = float(masse_carburant)
+            except :
                 print(" Erreur d'entrer, veuillez réessayer ") 
-                masse_seche = input(" Veuillez entrer la masse à vide de votre fusée (kg) : ")
-            masse_seche = float(masse_seche)    
-    
-            masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")
-            while masse_carburant.isdigit() == False :
-                print(" Erreur d'entrer, veuillez réessayer ") 
-                masse_carburant = input(" Veuillez entrer la masse du carburant initiale de votre fusée (kg) : ")   
-            masse_carburant = float(masse_carburant)
-    
-            pousse = input(" Veuillez entrer la poussé du moteur de votre fusee (N) : ")
-            while pousse.isdigit() == False :
-                print(" Erreur d'entrer, veuillez réessayer ")
+            else : 
+                masse_carburant_flag = False 
+           
+            pousse_flag = True 
+            while pousse_flag == True :
                 pousse = input(" Veuillez entrer la poussé du moteur de votre fusee (N) : ")
-            pousse = float(pousse)
+                try :
+                    pousse = float(pousse)
+                except :
+                    print(" Erreur d'entrer, veuillez réessayer ")
+                else :
+                    pousse_flag = False 
+
+            debit_flag = True 
+            
     
             debit = input(" Veuillez entrer le débit d'épuisement du carburant (kg/s) :")
             while debit.isdigit() == False:
